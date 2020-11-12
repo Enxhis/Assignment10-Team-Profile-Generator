@@ -1,5 +1,6 @@
-// TODO: Write code to define and export the Employee class
+// Class Employee
 class Employee{
+    // constructor
     constructor(name, id, email){
         if(!name){
             throw new Error("You should provide a NAME");
@@ -14,15 +15,19 @@ class Employee{
         this.id = id;
         this.email = email;
     }
+    // getName method
     getName(){
         return this.name;
     }
+    // getEmail method
     getEmail(){
         return this.email;
     }
+    // getId method
     getId(){
         return this.id;
     }
+    // getRole method
     getRole(){
         return "Employee";
     }
