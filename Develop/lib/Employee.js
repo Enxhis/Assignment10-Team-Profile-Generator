@@ -2,15 +2,17 @@
 class Employee{
     // constructor
     constructor(name, id, email){
-        if(!name){
-            throw new Error("You should provide a NAME");
-        }
-        if(!id){
-            throw new Error("You should provide an ID");
-        }
-        if(!email){
-            throw new Error("You should provide an EMAIL");
-        }
+        // throw errors in case not provided 'name, 'id', 'email'
+        // commented due to not supported from test cases
+        // if(!name){
+        //     throw new Error("You should provide a NAME");
+        // }
+        // if(!id){
+        //     throw new Error("You should provide an ID");
+        // }
+        // if(!email){
+        //     throw new Error("You should provide an EMAIL");
+        // }
         this.name = name;
         this.id = id;
         this.email = email;
