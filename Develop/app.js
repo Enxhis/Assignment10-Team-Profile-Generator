@@ -185,6 +185,72 @@ function menu() {
             createTeam();
         });
     }
+    // add Intern function
+    function addIntern(){
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "internName",
+                message: "What is intern's name?",
+                validate: answer => {
+                    if(answer !== ""){
+                        return true;
+                    }
+                    return "Please enter character value!";
+                }
+            },
+            {
+                type: "input",
+                name: "internID",
+                message: "What is intern's ID?",
+                validate: answer => {
+                    const id = answer.match(/^[1-9]\d*$/);
+                    if(id){
+                        if(arrayID.includes(answer)){
+                            return "This ID is already been used!";
+                        }else{
+                            return true;
+                        }
+                    }
+                    return "Please enter a valid number ID!";
+                }
+            },
+            {
+                type: "input",
+                name: "internEmail",
+                message: "What is intern's email?",
+                validate: answer => {
+                    const email = answer.match(/\S+@\S+\.\S+/);
+                    if(email){
+                        return true;
+                    }
+                    return "Please enter a valid emaild address!";
+                }
+            },
+            {
+                type: "input",
+                name: "school",
+                message: "What is intern's school?",
+                validate: answer => {
+                    if(answer !== ""){
+                        return true;
+                    }
+                    return "Please enter character value!";
+                }
+            }
+        ]).then(answers => {
+            const intern = new Intern(answers.internName, answers.internID, answers.internEmail, answers.school);
+            teamMembers.push(intern);
+            arrayID.push(answers.internID);
+            createTeam();
+        });
+    }
+    function buildUpTeam() {
+        if (!fs.existsSync(OUTPUT_DIR)) {
+            fs.mkdirSync(OUTPUT_DIR)
+        }
+        fs.writeFileSync(outputPath, render(teamMembers), "utf-8");
+    }
 
     // call addManager()
     addManager();
