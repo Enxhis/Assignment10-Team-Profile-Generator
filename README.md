@@ -21,7 +21,6 @@ so that I have quick access to emails and GitHub profiles. This project prompts 
   - Inquirer npm package
   - Jest
   
-
 ## Installation
   * Firstly make sure to have Node installed. In order to run the code:
     - npm install
