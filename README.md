@@ -32,6 +32,7 @@ so that I have quick access to emails and GitHub profiles. This project prompts 
     - npm run test
 
 ## Image
+![Team-Screenshot](/Assets/Team-Screenshot.png)
 
 ## Contribution
   * Enxhi Salaj 2020
