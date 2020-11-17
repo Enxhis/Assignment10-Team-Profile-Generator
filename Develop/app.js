@@ -38,10 +38,10 @@ const teamMembers = [];
 const arrayID = [];
 
 // Menu function
-function menu(){
+function menu() {
 
-    // create Manager
-    function addManager(){
+    // create Manager function
+    function addManager() {
         console.log("Build your team: ");
         inquirer.prompt([
             {
@@ -49,7 +49,7 @@ function menu(){
                 name: "managerName",
                 message: "What is your name?",
                 validate: answer => {
-                    if(answer != "" ){
+                    if (answer != "") {
                         return true;
                     }
                     return "Please enter character value!";
@@ -61,7 +61,7 @@ function menu(){
                 message: "What is your manager ID?",
                 validate: answer => {
                     const id = answer.match(/^[1-9]\d*$/);
-                    if(id){
+                    if (id) {
                         return true;
                     }
                     return "Please enter a valid number ID!"
@@ -73,10 +73,10 @@ function menu(){
                 message: "What is your manager email?",
                 validate: answer => {
                     const email = answer.match(/\S+@\S+\.\S+/);
-                    if(email){
+                    if (email) {
                         return true;
                     }
-                    return "Please enter a valid email!";
+                    return "Please enter a valid email address!";
                 }
             },
             {
@@ -85,7 +85,7 @@ function menu(){
                 message: "What is you manager office number?",
                 validate: answer => {
                     const num = answer.match(/^[1-9]\d*$/);
-                    if(num){
+                    if (num) {
                         return true;
                     }
                     return "Please enter a valid phone number!";
@@ -95,9 +95,99 @@ function menu(){
             const manager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.managerOfficeNumber);
             teamMembers.push(manager);
             arrayID.push(answers.managerID);
-            //createTeam(); 
+            createTeam(); 
         });
     }
+    // create team function
+    function createTeam() {
+        inquirer.prompt([
+            {
+                type: "list",
+                name: "chooseMember",
+                message: "What type of member would you add to team?",
+                choices: [
+                    "Engineer",
+                    "Intern",
+                    "I don't want to add any member"
+                ]
+            }
+        ]).then(userChoice => {
+            switch (userChoice.chooseMember) {
+                case "Engineer":
+                    addEngineer();
+                    break;
+                case "Intern":
+                    addIntern();
+                    break;
+                default:
+                    buildUpTeam();
+            }
+        });
+    }
+
+    // add Engineer function
+    function addEngineer() {
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "engineerName",
+                message: "What is your Engineer's name?",
+                validate: answer => {
+                    if (answer !== "") {
+                        return true;
+                    }
+                    return "Please enter character value!";
+                }
+            },
+            {
+                type: "input",
+                name: "engineerID",
+                message: "What is engineer's ID?",
+                validate: answer => {
+                    const id = answer.match(/^[1-9]\d*$/);
+                    if (id) {
+                        if (arrayID.includes(answer)) {
+                            return "This ID has already been used!";
+                        } else {
+                            return true;
+                        }
+                    }
+                    return "Please provide a valid number ID";
+                }
+            },
+            {
+                type: "input",
+                name: "engineerEmail",
+                message: "What is engineer's email?",
+                validate: answer => {
+                    const email = answer.match(/\S+@\S+\.\S+/);
+                    if(email){
+                        return true;
+                    }
+                    return "Please eneter a valid email address!";
+                }
+            },
+            {
+                type: "input",
+                name: "engineerGit",
+                message: "What is engineer's GitHub username?",
+                validate: answer => {
+                    if(answer !== ""){
+                        return true;
+                    }
+                    return "Please enter a character!";
+                }
+            }
+        ]).then(answers => {
+            const engineer = new Engineer(answers.engineerName, answers.engineerID, answers.engineerEmail, answers.engineerGit);
+            teamMembers.push(engineer);
+            arrayID.push(answers.engineerID);
+            createTeam();
+        });
+    }
+
+    // call addManager()
     addManager();
 }
+// call menu()
 menu();
