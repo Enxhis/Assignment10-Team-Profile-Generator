@@ -33,3 +33,71 @@ const render = require("./lib/htmlRenderer");
 // for further information. Be sure to test out each class and verify it generates an
 // object with the correct structure and methods. This structure will be crucial in order
 // for the provided `render` function to work! ```
+
+const teamMembers = [];
+const arrayID = [];
+
+// Menu function
+function menu(){
+
+    // create Manager
+    function addManager(){
+        console.log("Build your team: ");
+        inquirer.prompt([
+            {
+                type: "input",
+                name: "managerName",
+                message: "What is your name?",
+                validate: answer => {
+                    if(answer != "" ){
+                        return true;
+                    }
+                    return "Please enter character value!";
+                }
+            },
+            {
+                type: "input",
+                name: "managerID",
+                message: "What is your manager ID?",
+                validate: answer => {
+                    const id = answer.match(/^[1-9]\d*$/);
+                    if(id){
+                        return true;
+                    }
+                    return "Please enter a valid number ID!"
+                }
+            },
+            {
+                type: "input",
+                name: "managerEmail",
+                message: "What is your manager email?",
+                validate: answer => {
+                    const email = answer.match(/\S+@\S+\.\S+/);
+                    if(email){
+                        return true;
+                    }
+                    return "Please enter a valid email!";
+                }
+            },
+            {
+                type: "input",
+                name: "managerOfficeNumber",
+                message: "What is you manager office number?",
+                validate: answer => {
+                    const num = answer.match(/^[1-9]\d*$/);
+                    if(num){
+                        return true;
+                    }
+                    return "Please enter a valid phone number!";
+                }
+            }
+        ]).then(answers => {
+            const manager = new Manager(answers.managerName, answers.managerID, answers.managerEmail, answers.managerOfficeNumber);
+            teamMembers.push(manager);
+            arrayID.push(answers.managerID);
+            //createTeam(); 
+        });
+    }
+    addManager();
+}
+menu();
